@@ -6,7 +6,9 @@ class Test extends Component{
         super(props)
         this.state = {
             test: null,
-            error: null
+            error: null,
+            resp: null,
+            isLoaded: false
         }
     }
 
@@ -22,12 +24,32 @@ class Test extends Component{
                 error: axiosError
             })
         })
-    }
 
+        axios.post("http://localhost:5000/api/world",({post: "Test"}))
+        .then(response =>{
+            this.setState({
+                resp: response.data,
+                isLoaded: true
+            })
+        })
+        .catch(axiosError =>{
+            console.log(axiosError)
+        })
+    }
     render() {
+        if(this.state.isLoaded){
+        console.log(this.state.isLoaded)
         return(
-            <div>{this.state.test}</div>
-        )
+            <div>
+                <div>{this.state.test}</div>
+                <div>Response: {this.state.resp}</div>
+            </div>
+            )
+        } else {
+            return(
+                <div>Loading...</div>
+            )
+        }
     }
 }
 
