@@ -9,8 +9,20 @@ app.use(cors())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('/api/hello', (req, res) => {
-  res.send({ express: 'Hello From Express' });
+
+//quote api request
+const fetchquotes = require('node-fetch');
+let quotesUrl = "https://zenquotes.io/api/random";
+let quotesGet = {method: "Get"};
+let quote = {};
+fetchquotes(quotesUrl, quotesGet).
+then(res => res.json()).
+then((json) => {
+  quote = json[0];
+})
+
+app.get('/api/zenquote', (req, res) => {
+  res.send({ quote });
 });
 
 app.post('/api/world', (req, res) => {
