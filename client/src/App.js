@@ -1,11 +1,11 @@
-import Test from './components/Test'
+import Inspiration from './components/Inspiration'
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
       </header>
-      <Test />
+      <Inspiration />
     </div>
   );
 }
