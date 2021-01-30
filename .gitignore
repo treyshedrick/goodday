@@ -10,6 +10,9 @@ client/coverage
 # production
 client/build
 
+#content
+client/src/content/houstoncalm2.mp4
+
 # misc
 .DS_Store
 client/.env
