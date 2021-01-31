@@ -13,6 +13,9 @@ client/build
 #content
 client/src/content/houstoncalm2.mp4
 
+#databasecredentials
+config.js
+
 # misc
 .DS_Store
 client/.env
