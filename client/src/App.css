@@ -10,6 +10,11 @@
   margin-left: 25%;
   margin-top: 15%;
 }
+.login
+{
+  z-index: 2;
+  position: relative;
+}
 #myVideo {
   position: fixed;
   right: 0;
