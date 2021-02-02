@@ -36,4 +36,25 @@ client.query('SELECT * FROM AppUser', (err, dbres) => {
 })
 });
 
+app.post('/login', (req, res) =>{
+let email = req.body.email
+let password = req.body.password
+const client = new Client(config.prod)
+client.connect()
+client.query('SELECT * FROM AppUser Where email = \'' + email + '\' and password = \''+password+'\'', (err, dbres) => {
+  if(dbres.rowCount > 0){
+    res.send("Hello " + dbres.rows[0].firstname)
+    console.log("Success")
+  } else if(dbres.rowCount === 0){
+    res.send("UserName and/or Password are incorrect. Please try again")
+  } else if(err){
+    res.send(err)
+    console.log(err)
+  }
+
+  client.end();
+  
+})
+});
+
 app.listen(port, () => console.log(`Listening on port ${port}`));
