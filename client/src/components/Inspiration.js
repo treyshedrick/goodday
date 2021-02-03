@@ -30,7 +30,7 @@ class Inspiration extends Component{
     render() {
         if(this.state.isLoaded){
         return(
-            <div className="quote">
+            <div className="quote container">
                 <div>{this.state.quote}</div>
                 <div>- {this.state.author}</div>
             </div>

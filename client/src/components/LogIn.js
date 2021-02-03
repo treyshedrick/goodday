@@ -43,13 +43,13 @@ class LogIn extends Component{
 
     render(){
         return(
-            <div className="login">
-            <div>Login / Sign Up</div>
-            <form>
-            <input type="text" name="email" onChange={this.handleChange}/>
-            <input type="text" name="password" onChange={this.handleChange}/>
-            <button type="submit" onClick={this.handleSubmit}>Submit</button>
-            </form>
+            <div className="login container">    
+                <form  className="row">
+                    <div className="col-12">Login / Sign Up</div>
+                    <div className="col-12"><input type="text" name="email" onChange={this.handleChange}/></div>
+                    <div className="col-12"><input type="text" name="password" onChange={this.handleChange}/></div>
+                    <div className="col-12"><button type="submit" onClick={this.handleSubmit}>Submit</button></div>
+                </form>
             </div>
         )
     }

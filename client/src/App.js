@@ -9,8 +9,10 @@ function App() {
       <video src={houstoncalm2} autoPlay muted loop playsInline id="myVideo"></video>
       <header className="App-header">
       </header>
-      <Inspiration/>
-      <LogIn/>
+      <div className="App-Content container">
+        <Inspiration/>
+        <LogIn/>
+      </div>
     </div>
   )
 }
