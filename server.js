@@ -28,33 +28,43 @@ app.get('/api/zenquote', (req, res) => {
 });
 
 app.get('/api/users', (req, res) => {
-const client = new Client(config.prod)
-client.connect()
-client.query('SELECT * FROM AppUser', (err, dbres) => {
-  res.send(dbres.rows[0].firstname)
-  client.end()
-})
+  const client = new Client(config.prod)
+  client.connect()
+  
+  client.query('SELECT * FROM AppUser', (err, dbres) => {
+    res.send(dbres.rows[0].firstname)
+    client.end()
+  })
 });
 
 app.post('/login', (req, res) =>{
-let email = req.body.email
-let password = req.body.password
-const client = new Client(config.prod)
-client.connect()
-client.query('SELECT * FROM AppUser Where email = \'' + email + '\' and password = \''+password+'\'', (err, dbres) => {
-  if(dbres.rowCount > 0){
-    res.send("Hello " + dbres.rows[0].firstname)
-    console.log("Success")
-  } else if(dbres.rowCount === 0){
-    res.send("UserName and/or Password are incorrect. Please try again")
-  } else if(err){
-    res.send(err)
-    console.log(err)
-  }
+  let email = req.body.email
+  let password = req.body.password
+  let newUser = req.body.newUser
 
-  client.end();
-  
-})
+  const client = new Client(config.prod)
+  client.connect()
+
+  if(!newUser){
+    client.query('SELECT * FROM AppUser Where email = \'' + email + '\' and password = \''+password+'\'', (err, dbres) => {
+      if(dbres.rowCount > 0){
+        res.send("Hello " + dbres.rows[0].firstname)
+        console.log("Success")
+      } else if(dbres.rowCount === 0){
+          res.send("UserName and/or Password are incorrect. Please try again")
+      } else if(err){
+          res.send(err)
+          console.log(err)
+      }
+    client.end();
+    })
+  } else if(newUser){
+      client.query('Insert into Appuser (email,password) values (\'' + email + '\', \'' + password + '\');', (err, dbres) =>{
+        res.send("Thanks for Signing Up!")
+        console.log("Success")
+        client.end();
+      })
+    } 
 });
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
