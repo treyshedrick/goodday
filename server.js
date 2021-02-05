@@ -30,7 +30,7 @@ app.get('/api/zenquote', (req, res) => {
 app.get('/api/users', (req, res) => {
   const client = new Client(config.prod)
   client.connect()
-  
+
   client.query('SELECT * FROM AppUser', (err, dbres) => {
     res.send(dbres.rows[0].firstname)
     client.end()
@@ -48,7 +48,7 @@ app.post('/login', (req, res) =>{
   if(!newUser){
     client.query('SELECT * FROM AppUser Where email = \'' + email + '\' and password = \''+password+'\'', (err, dbres) => {
       if(dbres.rowCount > 0){
-        res.send("Hello " + dbres.rows[0].firstname)
+        res.send({id: dbres.rows[0].appuserid, name: dbres.rows[0].firstname})
         console.log("Success")
       } else if(dbres.rowCount === 0){
           res.send("UserName and/or Password are incorrect. Please try again")
@@ -61,7 +61,7 @@ app.post('/login', (req, res) =>{
   } else if(newUser){
       client.query('Insert into Appuser (email,password) values (\'' + email + '\', \'' + password + '\');', (err, dbres) =>{
         res.send("Thanks for Signing Up!")
-        console.log("Success")
+        console.log(dbres)
         client.end();
       })
     } 

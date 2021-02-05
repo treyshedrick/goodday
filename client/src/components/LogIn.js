@@ -9,7 +9,8 @@ class LogIn extends Component{
             password: null,
             submit: false,
             newUser: false,
-            isLoggedIn: null
+            isLoggedIn: false,
+            user: {}
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -18,11 +19,15 @@ class LogIn extends Component{
     }
 
     componentDidUpdate(prevProps, prevState){
-        if(prevState.email === this.state.email && this.state.password === prevState.password && prevState.newUser === this.state.newUser){
+        if(prevState.email === this.state.email && this.state.password === prevState.password && prevState.newUser === this.state.newUser && !this.state.isLoggedIn){
             console.log("Make sure updates occur on click")
             axios.post('http://localhost:5000/login',{email: this.state.email, password: this.state.password, newUser: this.state.newUser})
             .then(response =>{
                 console.log(response.data)
+                this.setState({
+                    isLoggedIn: true,
+                    user: response.data
+                })
             })
             .catch(axiosErr =>{
                 console.log(axiosErr)
@@ -53,22 +58,33 @@ class LogIn extends Component{
     render(){
         let userMethod = "Login"
         let showBtn = '';
-        
+
         if(this.state.newUser){
             userMethod = "Insert your email and password"
             showBtn = 'none'
         }
-        return(
-            <div className="login container ">    
-                <form className="row">
-                    <div className="col-12">{userMethod}</div>
-                    <div className="col-12"><input type="text" name="email" onChange={this.handleChange}/></div>
-                    <div className="col-12"><input type="text" name="password" onChange={this.handleChange}/></div>
-                    <div className="col-12"><button type="submit" onClick={this.handleSubmit}>Submit</button></div>
-                </form>
-                <div className="col-12" style={{display: showBtn}}><button onClick={this.handleNewUser}>New User?</button></div>
-            </div>
+
+        if(!this.state.isLoggedIn){
+            return(
+                <div className="login container">    
+                    <form className="row">
+                        <div className="col-12">{userMethod}</div>
+                        <div className="col-12"><input type="text" name="email" onChange={this.handleChange}/></div>
+                        <div className="col-12"><input type="text" name="password" onChange={this.handleChange}/></div>
+                        <div className="col-12"><button type="submit" onClick={this.handleSubmit}>Submit</button></div>
+                    </form>
+                    <div className="col-12" style={{display: showBtn}}><button onClick={this.handleNewUser}>New User?</button></div>
+                </div>
         )
+        } else if(this.state.isLoggedIn && !this.state.newUser){
+            return(
+                <div className="login container">Welcome {this.state.user.name}!</div>
+            )
+        } else if(this.state.newUser){
+            return(
+                <div className="login container">Welcome New User</div>
+            )
+        }
     }
 }
 
