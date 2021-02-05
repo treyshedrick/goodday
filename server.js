@@ -37,6 +37,18 @@ app.get('/api/users', (req, res) => {
   })
 });
 
+app.post('/update/name', (req, res) =>{
+  const client = new Client(config.prod)
+  client.connect()
+  
+  client.query('Update appuser set firstname = \'' + req.body.name +'\' where appuserid = ' + req.body.id + ';', (err, dbres) =>{
+    res.send("Success");
+    console.log(dbres)
+    console.log("Success")
+    client.end();
+  })
+})
+
 app.post('/login', (req, res) =>{
   let email = req.body.email
   let password = req.body.password
@@ -56,15 +68,21 @@ app.post('/login', (req, res) =>{
           res.send(err)
           console.log(err)
       }
-    client.end();
+
+      client.end();
     })
+
   } else if(newUser){
-      client.query('Insert into Appuser (email,password) values (\'' + email + '\', \'' + password + '\');', (err, dbres) =>{
-        res.send("Thanks for Signing Up!")
-        console.log(dbres)
+      client.query('Insert into Appuser (email,password) values (\'' + email + '\', \'' + password + '\') Returning *;', (err, dbres) =>{
+        if(!err){
+          res.send({id: dbres.rows[0].appuserid})
+        } else {
+          res.send(err)
+        }
+
         client.end();
       })
-    } 
+    }
 });
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
