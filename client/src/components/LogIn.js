@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import NewUser from './NewUser';
 
 class LogIn extends Component{
     constructor(props){
@@ -64,14 +65,14 @@ class LogIn extends Component{
             showBtn = 'none'
         }
 
-        if(!this.state.isLoggedIn){
+        if(!this.state.isLoggedIn ){
             return(
                 <div className="login container">    
-                    <form className="row">
+                    <form className="row" onSubmit={this.handleSubmit}>
                         <div className="col-12">{userMethod}</div>
-                        <div className="col-12"><input type="text" name="email" onChange={this.handleChange}/></div>
-                        <div className="col-12"><input type="text" name="password" onChange={this.handleChange}/></div>
-                        <div className="col-12"><button type="submit" onClick={this.handleSubmit}>Submit</button></div>
+                        <div className="col-12"><input type="text" name="email" onChange={this.handleChange} placeholder="Email" required/></div>
+                        <div className="col-12"><input type="text" name="password" onChange={this.handleChange} placeholder="Password" required/></div>
+                        <div className="col-12"><button type="submit">Submit</button></div>
                     </form>
                     <div className="col-12" style={{display: showBtn}}><button onClick={this.handleNewUser}>New User?</button></div>
                 </div>
@@ -80,9 +81,9 @@ class LogIn extends Component{
             return(
                 <div className="login container">Welcome {this.state.user.name}!</div>
             )
-        } else if(this.state.newUser){
+        } else if(this.state.newUser && this.state.isLoggedIn){
             return(
-                <div className="login container">Welcome New User</div>
+                <NewUser id={this.state.user.id} />
             )
         }
     }
