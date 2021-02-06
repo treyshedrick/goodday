@@ -11,6 +11,7 @@ class LogIn extends Component{
             submit: false,
             newUser: false,
             isLoggedIn: false,
+            invalidInputs: false,
             user: {}
         }
 
@@ -20,15 +21,22 @@ class LogIn extends Component{
     }
 
     componentDidUpdate(prevProps, prevState){
-        if(prevState.email === this.state.email && this.state.password === prevState.password && prevState.newUser === this.state.newUser && !this.state.isLoggedIn){
+        if(prevState.email === this.state.email && this.state.password === prevState.password && prevState.newUser === this.state.newUser && !this.state.isLoggedIn && this.state.invalidInputs === prevState.invalidInputs){
             console.log("Make sure updates occur on click")
             axios.post('http://localhost:5000/login',{email: this.state.email, password: this.state.password, newUser: this.state.newUser})
             .then(response =>{
                 console.log(response.data)
-                this.setState({
-                    isLoggedIn: true,
-                    user: response.data
-                })
+                if(response.data.id > 0){
+                    this.setState({
+                        isLoggedIn: true,
+                        user: response.data
+                    })
+                } else{
+                    this.setState(prevState => ({
+                        invalidInputs: !prevState.invalidInputs,
+                        user: response.data
+                    }))
+                }
             })
             .catch(axiosErr =>{
                 console.log(axiosErr)
@@ -63,21 +71,23 @@ class LogIn extends Component{
         if(this.state.newUser){
             userMethod = "Insert your email and password"
             showBtn = 'none'
+        } else if(this.state.user.id === -1){
+            userMethod = 'Invalid username or password. Please try again'
         }
 
-        if(!this.state.isLoggedIn ){
+        if(!this.state.isLoggedIn || this.state.user.id === -1){
             return(
                 <div className="login container">    
                     <form className="row" onSubmit={this.handleSubmit}>
                         <div className="col-12">{userMethod}</div>
                         <div className="col-12"><input type="text" name="email" onChange={this.handleChange} placeholder="Email" required/></div>
-                        <div className="col-12"><input type="text" name="password" onChange={this.handleChange} placeholder="Password" required/></div>
+                        <div className="col-12"><input type="password" name="password" onChange={this.handleChange} placeholder="Password" required/></div>
                         <div className="col-12"><button type="submit">Submit</button></div>
                     </form>
                     <div className="col-12" style={{display: showBtn}}><button onClick={this.handleNewUser}>New User?</button></div>
                 </div>
         )
-        } else if(this.state.isLoggedIn && !this.state.newUser){
+        } else if(this.state.isLoggedIn && !this.state.newUser && this.state.user.id > 0){
             return(
                 <div className="login container">Welcome {this.state.user.name}!</div>
             )

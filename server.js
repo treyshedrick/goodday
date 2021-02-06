@@ -40,7 +40,7 @@ app.get('/api/users', (req, res) => {
 app.post('/update/name', (req, res) =>{
   const client = new Client(config.prod)
   client.connect()
-  
+
   client.query('Update appuser set firstname = \'' + req.body.name +'\' where appuserid = ' + req.body.id + ';', (err, dbres) =>{
     res.send("Success");
     console.log(dbres)
@@ -63,7 +63,7 @@ app.post('/login', (req, res) =>{
         res.send({id: dbres.rows[0].appuserid, name: dbres.rows[0].firstname})
         console.log("Success")
       } else if(dbres.rowCount === 0){
-          res.send("UserName and/or Password are incorrect. Please try again")
+          res.send({id: -1})
       } else if(err){
           res.send(err)
           console.log(err)
