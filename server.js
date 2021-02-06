@@ -3,6 +3,7 @@ const cors = require('cors')
 const bodyParser = require('body-parser');
 const config = require('./config')
 const { Client } = require('pg')
+const bcrypt = require('bcrypt')
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -58,10 +59,20 @@ app.post('/login', (req, res) =>{
   client.connect()
 
   if(!newUser){
-    client.query('SELECT * FROM AppUser Where email = \'' + email + '\' and password = \''+password+'\'', (err, dbres) => {
+    client.query('SELECT * FROM AppUser Where email = \'' + email + '\';', (err, dbres) => {
       if(dbres.rowCount > 0){
-        res.send({id: dbres.rows[0].appuserid, name: dbres.rows[0].firstname})
-        console.log("Success")
+        bcrypt.compare(password, dbres.rows[0].password)
+        .then(function(result) {
+          if(result){
+            res.send({id: dbres.rows[0].appuserid, name: dbres.rows[0].firstname})
+          } else{
+            res.send({id: -1})
+          }
+        })
+        .catch(err => {
+          console.log(err)
+        });
+
       } else if(dbres.rowCount === 0){
           res.send({id: -1})
       } else if(err){
@@ -73,15 +84,20 @@ app.post('/login', (req, res) =>{
     })
 
   } else if(newUser){
-      client.query('Insert into Appuser (email,password) values (\'' + email + '\', \'' + password + '\') Returning *;', (err, dbres) =>{
-        if(!err){
-          res.send({id: dbres.rows[0].appuserid})
-        } else {
+      bcrypt.hash(password, 10)
+      .then(function(hash) {
+        client.query('Insert into Appuser (email,password) values (\'' + email + '\', \'' + hash + '\') Returning *;', (err, dbres) =>{
+          if(!err){
+            res.send({id: dbres.rows[0].appuserid})
+          } else {
           res.send(err)
-        }
-
-        client.end();
+          }
+          client.end();
+        })
       })
+      .catch(err =>{
+        console.log(err)
+      });
     }
 });
 
