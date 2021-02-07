@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import NewUser from './NewUser';
+import Home from './Main/Home';
 
 class LogIn extends Component{
     constructor(props){
@@ -92,7 +93,7 @@ class LogIn extends Component{
         )
         } else if(this.state.isLoggedIn && !this.state.newUser && this.state.user.id > 0){
             return(
-                <div className="login container">Welcome {this.state.user.name}!</div>
+                <Home user={this.state.user} />
             )
         } else if(this.state.newUser && this.state.isLoggedIn){
             return(
