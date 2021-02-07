@@ -68,14 +68,17 @@ class LogIn extends Component{
         let userMethod = "Login"
         let showBtn = '';
 
-        if(this.state.newUser){
+        if(this.state.user.id === -2 && this.state.newUser){
+            userMethod = 'Email address already used. Please use a different email address.'
+            showBtn = 'none'
+        } else if(this.state.newUser){
             userMethod = "Insert your email and password"
             showBtn = 'none'
         } else if(this.state.user.id === -1){
             userMethod = 'Invalid username or password. Please try again'
         }
 
-        if(!this.state.isLoggedIn || this.state.user.id === -1){
+        if(!this.state.isLoggedIn || this.state.user.id < 0){
             return(
                 <div className="login container">    
                     <form className="row" onSubmit={this.handleSubmit}>

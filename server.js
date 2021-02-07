@@ -90,7 +90,7 @@ app.post('/login', (req, res) =>{
           if(!err){
             res.send({id: dbres.rows[0].appuserid})
           } else {
-          res.send(err)
+            res.send({id: -2, error: err})
           }
           client.end();
         })
