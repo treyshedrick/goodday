@@ -60,21 +60,21 @@ class LogIn extends Component{
 
     handleNewUser(e){
         this.setState({
-            newUser: true
+            newUser: !this.state.newUser
         })
         e.preventDefault();
     }
 
     render(){
         let userMethod = "Login"
-        let showBtn = '';
+        let btntext = 'Register';
 
         if(this.state.user.id === -2 && this.state.newUser){
             userMethod = 'Email address already used. Please use a different email address.'
-            showBtn = 'none'
+            btntext = 'Back'
         } else if(this.state.newUser){
             userMethod = "Insert your email and password"
-            showBtn = 'none'
+            btntext = 'Back'
         } else if(this.state.user.id === -1){
             userMethod = 'Invalid username or password. Please try again'
         }
@@ -86,9 +86,9 @@ class LogIn extends Component{
                         <div className="col-12">{userMethod}</div>
                         <div className="col-12"><input type="text" name="email" onChange={this.handleChange} placeholder="Email" required/></div>
                         <div className="col-12"><input type="password" name="password" onChange={this.handleChange} placeholder="Password" required/></div>
-                        <div className="col-12"><button type="submit">Submit</button></div>
+                        <div className="col-6"><button type="submit">Submit</button></div>
+                        <div className="col-6"><button onClick={this.handleNewUser}>{btntext}</button></div>
                     </form>
-                    <div className="col-12" style={{display: showBtn}}><button onClick={this.handleNewUser}>New User?</button></div>
                 </div>
         )
         } else if(this.state.isLoggedIn && !this.state.newUser && this.state.user.id > 0){
