@@ -15,19 +15,49 @@
 }
 .login
 {
-  width: 200px !important;
+  width: 250px !important;
+  text-align: center;
   position: relative;
   margin-top: 10%;
   border-style: solid;
   border-width: 1px;
   border-color: white;
   border-radius: 2rem;
-  background-color: rgba(255, 255, 255, 0.397);
-  padding: 10px
+  background-color: rgba(255, 255, 255, 0.226);
+  padding: 10px;
 }
 .col-12
 {
-  padding: 5px;
+  padding-bottom: 10px;
+}
+.login-btn-left
+{
+  text-align: right !important;
+  padding-top: 5px;
+}
+.login-btn-right
+{
+  text-align: left !important;
+  padding-left: 5px;
+  padding-top: 5px;
+}
+.login-method
+{
+  font-family: cursive;
+  font-size: 20px;
+  font-weight: bold;
+}
+.good-btn
+{
+  font-family: cursive;
+  border-radius: 2rem;
+  border-color: white;
+  border-style: solid;
+  background-color: rgba(255, 255, 255, 0.6);
+}
+.good-btn:hover
+{
+  background-color: rgba(255, 255, 255, 0.952);;
 }
 #myVideo {
   position: fixed;

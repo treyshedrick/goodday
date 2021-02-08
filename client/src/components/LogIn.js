@@ -68,7 +68,7 @@ class LogIn extends Component{
     render(){
         let userMethod = "Login"
         let btntext = 'Register';
-
+        
         if(this.state.user.id === -2 && this.state.newUser){
             userMethod = 'Email address already used. Please use a different email address.'
             btntext = 'Back'
@@ -83,11 +83,11 @@ class LogIn extends Component{
             return(
                 <div className="login container">    
                     <form className="row" onSubmit={this.handleSubmit}>
-                        <div className="col-12">{userMethod}</div>
+                        <div className="col-12 login-method">{userMethod}</div>
                         <div className="col-12"><input type="text" name="email" onChange={this.handleChange} placeholder="Email" required/></div>
                         <div className="col-12"><input type="password" name="password" onChange={this.handleChange} placeholder="Password" required/></div>
-                        <div className="col-6"><button type="submit">Submit</button></div>
-                        <div className="col-6"><button onClick={this.handleNewUser}>{btntext}</button></div>
+                        <div className="col-6 login-btn-left"><button className="good-btn" type="submit">Submit</button></div>
+                        <div className="col-6 login-btn-right"><button className="good-btn" onClick={this.handleNewUser}>{btntext}</button></div>
                     </form>
                 </div>
         )
