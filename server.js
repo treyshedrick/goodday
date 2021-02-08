@@ -28,16 +28,6 @@ app.get('/api/zenquote', (req, res) => {
   res.send({ quote });
 });
 
-app.get('/api/users', (req, res) => {
-  const client = new Client(config.prod)
-  client.connect()
-
-  client.query('SELECT * FROM AppUser', (err, dbres) => {
-    res.send(dbres.rows[0].firstname)
-    client.end()
-  })
-});
-
 app.post('/update/name', (req, res) =>{
   const client = new Client(config.prod)
   client.connect()
