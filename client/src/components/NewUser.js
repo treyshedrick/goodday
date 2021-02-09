@@ -17,7 +17,7 @@ class NewUser extends Component{
     componentDidUpdate(prevProps, prevState){
         if(this.state.name === prevState.name && this.state.submit === true && !this.state.enteredName){
             console.log("This needs to happen once");
-            axios.post('http://localhost:5000/update/name',{id: this.props.id, name: this.state.name})
+            axios.post('http://localhost:5000/api/update/name',{id: this.props.id, name: this.state.name})
             .then(response =>{
                 console.log(response.data)
                 this.setState({

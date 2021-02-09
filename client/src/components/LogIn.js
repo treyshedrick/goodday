@@ -24,7 +24,7 @@ class LogIn extends Component{
     componentDidUpdate(prevProps, prevState){
         if(prevState.email === this.state.email && this.state.password === prevState.password && prevState.newUser === this.state.newUser && !this.state.isLoggedIn && this.state.invalidInputs === prevState.invalidInputs){
             console.log("Make sure updates occur on click")
-            axios.post('http://localhost:5000/login',{email: this.state.email, password: this.state.password, newUser: this.state.newUser})
+            axios.post('http://localhost:5000/api/login',{email: this.state.email, password: this.state.password, newUser: this.state.newUser})
             .then(response =>{
                 console.log(response.data)
                 if(response.data.id > 0){

@@ -28,7 +28,7 @@ app.get('/api/zenquote', (req, res) => {
   res.send({ quote });
 });
 
-app.post('/update/name', (req, res) =>{
+app.post('/api/update/name', (req, res) =>{
   const client = new Client(config.prod)
   client.connect()
 
@@ -40,7 +40,7 @@ app.post('/update/name', (req, res) =>{
   })
 })
 
-app.post('/login', (req, res) =>{
+app.post('/api/login', (req, res) =>{
   let email = req.body.email
   let password = req.body.password
   let newUser = req.body.newUser
