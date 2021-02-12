@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import Home from './Main/Home'
 
 class NewUser extends Component{
     constructor(props){
@@ -7,7 +8,7 @@ class NewUser extends Component{
         this.state = {
             name: "",
             submit: false,
-            enteredName: false
+            enteredName: false,
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -44,6 +45,7 @@ class NewUser extends Component{
     }
     
     render(){
+        if(!this.state.enteredName){
         return(
             <div className="login container">
                 <div>Hello</div>
@@ -53,6 +55,11 @@ class NewUser extends Component{
                 </form>
             </div>
         )
+        } else if(this.state.enteredName){
+            return(
+                <Home user={{id: this.props.id, name: this.state.name}} />
+            )
+        }
     }
 }
 
