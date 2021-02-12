@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import Post from './Post';
+import Task from './Task';
 
 class Home extends Component{
     constructor(props){
@@ -16,8 +18,10 @@ class Home extends Component{
                     <div className="col-12">Hello {this.props.user.name}</div>
                 </div>
                 <div className="row">
-                    <div className="col-6">SOMETHING POSITIVE {/*Post Component*/}</div>
-                    <div className="col-6">TASKS {/*Task Components*/}</div>
+                    <div className="col-12"><Post /></div>
+                </div>
+                <div className="row">
+                    <div className="col-12"><Task /></div>
                 </div>
             </div>
         )
