@@ -91,4 +91,10 @@ app.post('/api/login', (req, res) =>{
     }
 });
 
+app.post('/api/post', (req,res) =>{
+  console.log(req.body)
+  const client = new Client(config.prod)
+  client.connect()
+})
+
 app.listen(port, () => console.log(`Listening on port ${port}`));
