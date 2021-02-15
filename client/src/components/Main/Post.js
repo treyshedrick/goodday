@@ -46,15 +46,21 @@ class Post extends Component{
     }
 
     render(){
+        if(!this.state.posted){
         return(
             <div>
                 <div>Something Positive</div>
                 <form onSubmit={this.handleSubmit}>
-                    <textarea placeholder="Say something positive about the day!" onChange={this.handleChange}></textarea>
+                    <textarea placeholder="Say something positive about the day!" onChange={this.handleChange} required></textarea>
                     <button type="submit">Post!</button>                
                 </form>
             </div>
         )
+        } else if(this.state.posted){
+            return(
+            <div>Alway's Think Positive!</div>
+            )
+        }
     }
 }
 
