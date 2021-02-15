@@ -92,9 +92,17 @@ app.post('/api/login', (req, res) =>{
 });
 
 app.post('/api/post', (req,res) =>{
-  console.log(req.body)
   const client = new Client(config.prod)
   client.connect()
+
+  client.query('Insert into appuserpost (appuserid, post) values (' + req.body.id + ', \'' + req.body.post + '\');', (err, dbres) =>{
+    if(!err){
+    res.send("Alway's Think Positive!")
+    } else if(err){
+      console.log(err);
+    }
+  })
+  
 })
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
