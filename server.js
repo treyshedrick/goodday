@@ -97,9 +97,9 @@ app.post('/api/post', (req,res) =>{
 
   client.query('Insert into appuserpost (appuserid, post) values (' + req.body.id + ', \'' + req.body.post + '\');', (err, dbres) =>{
     if(!err){
-    res.send("Alway's Think Positive!")
+      res.send("Alway's Think Positive!")
     } else if(err){
-      console.log(err);
+      res.send(err)
     }
   })
   

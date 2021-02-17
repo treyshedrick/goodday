@@ -7,7 +7,8 @@ class Post extends Component{
         this.state = {
             positivePost: "",
             submit: false,
-            posted: false
+            posted: false,
+            insertedResponse: ""
         }
         
         this.handleChange = this.handleChange.bind(this);
@@ -20,9 +21,9 @@ class Post extends Component{
             console.log("Post should only occur once")
             axios.post('http://localhost:5000/api/post', post)
             .then(response =>{
-                console.log(response)
                 this.setState({
-                    posted: true
+                    posted: true,
+                    insertedResponse: response.data
                 })
             })
             .catch(axiosErr =>{
@@ -58,7 +59,7 @@ class Post extends Component{
         )
         } else if(this.state.posted){
             return(
-            <div>Alway's Think Positive!</div>
+                <div>{this.state.insertedResponse}</div>
             )
         }
     }
