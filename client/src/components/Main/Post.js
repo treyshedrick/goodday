@@ -8,6 +8,7 @@ class Post extends Component{
             positivePost: "",
             submit: false,
             posted: false,
+            newPost: false,
             insertedResponse: ""
         }
         
@@ -23,6 +24,11 @@ class Post extends Component{
                 this.setState({
                     posted:true,
                     insertedResponse: response.data
+                })
+            }
+            else{
+                this.setState({
+                    newPost: true
                 })
             }
         })
@@ -64,7 +70,7 @@ class Post extends Component{
     }
 
     render(){
-        if(!this.state.posted){
+        if(!this.state.posted && this.state.newPost){
         return(
             <div>
                 <div>Something Positive</div>
@@ -80,7 +86,7 @@ class Post extends Component{
             )
         } else {
             return(
-                <div>Loading . . .</div>
+                <div>Loading ...</div>
             )
         }
     }
