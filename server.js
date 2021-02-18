@@ -15,6 +15,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 //quote api request
 const fetchquotes = require('node-fetch');
+const e = require('express');
 let quotesUrl = "https://zenquotes.io/api/random";
 let quotesGet = {method: "Get"};
 let quote = {};
@@ -102,7 +103,23 @@ app.post('/api/post', (req,res) =>{
       res.send(err)
     }
   })
-  
+})
+
+app.post('/api/postedtoday', (req,res) =>{
+  const client = new Client(config.prod)
+  client.connect()
+
+  client.query('select * from appuserpost where date(current_timestamp + time \'06:00\') = date(dateposted) and appuserid =' + req.body.id + ';', (err, dbres) =>{
+    if(!err){
+      if(dbres.rowCount === 1){
+        res.send("Always Think Positive. Thanks for posting today!")
+      } else{
+        res.send(false)
+      }
+    } else if(err){
+      console.log(err)
+    }
+  })
 })
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
