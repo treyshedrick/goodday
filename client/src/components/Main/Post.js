@@ -15,6 +15,23 @@ class Post extends Component{
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    componentDidMount(){
+        let post = {id: this.props.user.id}
+        axios.post('http://localhost:5000/api/postedtoday', post)
+        .then(response =>{
+            if(response.data){
+                this.setState({
+                    posted:true,
+                    insertedResponse: response.data
+                })
+            }
+        })
+        .catch(axiosErr =>{
+            console.log(axiosErr)
+        })
+        
+    }
+
     componentDidUpdate(prevProps, prevState){
         if(this.state.positivePost === prevState.positivePost && !this.state.posted && this.state.submit){
             let post = {id: this.props.user.id, post: this.state.positivePost}
@@ -60,6 +77,10 @@ class Post extends Component{
         } else if(this.state.posted){
             return(
                 <div>{this.state.insertedResponse}</div>
+            )
+        } else {
+            return(
+                <div>Loading . . .</div>
             )
         }
     }
