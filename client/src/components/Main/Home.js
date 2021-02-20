@@ -11,7 +11,7 @@ let Home = (props) => {
                 <div className="col-12"><Post user={props.user}/></div>
             </div>
             <div className="row">
-                <div className="col-12"><Task /></div>
+                <div className="col-12"><Task user={props.user}/></div>
             </div>
         </div>
         )
