@@ -123,7 +123,8 @@ app.post('/api/postedtoday', (req,res) =>{
   client.query('select * from ' + usertable + ' where date(current_timestamp) = date(dateposted) and appuserid =' + req.body.id + ';', (err, dbres) =>{
     if(!err){
       if(dbres.rowCount === 1){
-        res.send(positiveresponse)
+        let id = usertable+"id"
+        res.send({didPost: true, positiveresponse: positiveresponse, id: dbres.rows[0][id]})
       } else{
         res.send(false)
       }

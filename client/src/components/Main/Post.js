@@ -20,10 +20,10 @@ class Post extends Component{
         let post = {id: this.props.user.id}
         axios.post('http://localhost:5000/api/postedtoday', post)
         .then(response =>{
-            if(response.data){
+            if(response.data.didPost){
                 this.setState({
                     posted:true,
-                    insertedResponse: response.data
+                    insertedResponse: response.data.positiveresponse
                 })
             }
             else{

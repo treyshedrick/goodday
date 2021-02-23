@@ -9,7 +9,8 @@ class Task extends Component{
             submit: false,
             posted: false,
             newTask: false,
-            insertedResponse: ""
+            insertedResponse: "",
+            taskid: -1
         }        
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -19,10 +20,11 @@ class Task extends Component{
         let post = {id: this.props.user.id, task: true}
         axios.post('http://localhost:5000/api/postedtoday', post)
         .then(response =>{
-            if(response.data){
+            if(response.data.didPost){
                 this.setState({
                     posted:true,
-                    insertedResponse: response.data
+                    insertedResponse: response.data.positiveresponse,
+                    taskid: response.data.id
                 })
             }
             else{
@@ -69,6 +71,7 @@ class Task extends Component{
     }
 
     render(){
+        console.log(this.state.taskid)
         if(!this.state.posted && this.state.newTask){
         return(
             <div>
