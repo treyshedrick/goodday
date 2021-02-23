@@ -125,4 +125,17 @@ app.post('/api/postedtoday', (req,res) =>{
   })
 })
 
+app.post('/api/task', (req,res) =>{
+  const client = new Client(config.prod)
+  client.connect()
+
+  client.query('Insert into appusertask (appuserid, task) values (' + req.body.id + ', \'' + req.body.task + '\');', (err, dbres) =>{
+    if(!err){
+      res.send("Make sure to complete your task!")
+    } else if(err){
+      res.send(err)
+    }
+  })
+})
+
 app.listen(port, () => console.log(`Listening on port ${port}`));
