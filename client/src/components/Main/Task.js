@@ -8,15 +8,15 @@ class Task extends Component{
             task: "",
             submit: false,
             posted: false,
-            newTask: true,
+            newTask: false,
             insertedResponse: ""
         }        
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    /*componentDidMount(){
-        let post = {id: this.props.user.id}
+    componentDidMount(){
+        let post = {id: this.props.user.id, task: true}
         axios.post('http://localhost:5000/api/postedtoday', post)
         .then(response =>{
             if(response.data){
@@ -27,7 +27,7 @@ class Task extends Component{
             }
             else{
                 this.setState({
-                    newPost: true
+                    newTask: true
                 })
             }
         })
@@ -35,7 +35,7 @@ class Task extends Component{
             console.log(axiosErr)
         })
         
-    }*/
+    }
 
     componentDidUpdate(prevProps, prevState){
         if(this.state.positivePost === prevState.positivePost && !this.state.posted && this.state.submit){
@@ -85,7 +85,7 @@ class Task extends Component{
             )
         } else {
             return(
-                <div>Loading ...</div>
+                <div></div>
             )
         }
     }

@@ -108,16 +108,24 @@ app.post('/api/post', (req,res) =>{
 app.post('/api/postedtoday', (req,res) =>{
   const client = new Client(config.prod)
   client.connect()
-  console.log(req.body.id)
 
-  client.query('select * from appuserpost where date(current_timestamp) = date(dateposted) and appuserid =' + req.body.id + ';', (err, dbres) =>{
+  let usertable = ""
+  let positiveresponse = ""
+  if(req.body.task === undefined)
+  {
+    usertable = "appuserpost"
+    positiveresponse = "Always Think Positive. Thanks for posting today!"
+  } else{
+    usertable = "appusertask"
+    positiveresponse = "Make sure to complete your task!"
+  }
+
+  client.query('select * from ' + usertable + ' where date(current_timestamp) = date(dateposted) and appuserid =' + req.body.id + ';', (err, dbres) =>{
     if(!err){
       if(dbres.rowCount === 1){
-        res.send("Always Think Positive. Thanks for posting today!")
-        console.log(dbres)
+        res.send(positiveresponse)
       } else{
         res.send(false)
-        console.log(dbres);
       }
     } else if(err){
       console.log(err)
