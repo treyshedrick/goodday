@@ -10,10 +10,12 @@ class Task extends Component{
             posted: false,
             newTask: false,
             insertedResponse: "",
-            taskid: -1
+            taskid: -1,
+            completedtask: false
         }        
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleCompleted = this.handleCompleted.bind(this);
     }
 
     componentDidMount(){
@@ -71,6 +73,12 @@ class Task extends Component{
         e.preventDefault();
     }
 
+    handleCompleted(e){
+        this.setState({
+            completedtask: true
+        })
+    }
+
     render(){
         console.log(this.state.taskid)
         if(!this.state.posted && this.state.newTask){
@@ -83,9 +91,12 @@ class Task extends Component{
                 </form>
             </div>
         )
-        } else if(this.state.posted){
+        } else if(this.state.posted && !this.state.completedtask){
             return(
-                <div>{this.state.insertedResponse}</div>
+                <div>
+                    <div>{this.state.insertedResponse}</div>
+                    <button onClick={this.handleCompleted}>Completed Task</button>
+                </div>
             )
         } else {
             return(
