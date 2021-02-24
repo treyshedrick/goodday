@@ -138,9 +138,10 @@ app.post('/api/task', (req,res) =>{
   const client = new Client(config.prod)
   client.connect()
 
-  client.query('Insert into appusertask (appuserid, task) values (' + req.body.id + ', \'' + req.body.task + '\');', (err, dbres) =>{
+  client.query('Insert into appusertask (appuserid, task) values (' + req.body.id + ', \'' + req.body.task + '\') returning appusertaskid;', (err, dbres) =>{
     if(!err){
-      res.send("Make sure to complete your task!")
+      res.send({taskresponse: "Make sure to complete your task!", id: dbres.rows[0].appusertaskid})
+      console.log(dbres)
     } else if(err){
       res.send(err)
     }

@@ -47,7 +47,8 @@ class Task extends Component{
             .then(response =>{
                 this.setState({
                     posted: true,
-                    insertedResponse: response.data
+                    insertedResponse: response.data.taskresponse,
+                    taskid: response.data.id
                 })
             })
             .catch(axiosErr =>{
