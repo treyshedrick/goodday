@@ -148,4 +148,17 @@ app.post('/api/task', (req,res) =>{
   })
 })
 
+app.post('/api/updatetask', (req,res) =>{
+  const client = new Client(config.prod)
+  client.connect()
+
+  client.query('update appusertask set completed = \'1\' where appusertaskid = ' + req.body.taskid + ';', (err,dbres) =>{
+    if(!err){
+      res.send(true)
+    } else{
+      res.send(err)
+    }
+  })
+})
+
 app.listen(port, () => console.log(`Listening on port ${port}`));

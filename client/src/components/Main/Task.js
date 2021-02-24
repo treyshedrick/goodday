@@ -73,9 +73,15 @@ class Task extends Component{
         e.preventDefault();
     }
 
-    handleCompleted(e){
-        this.setState({
-            completedtask: true
+    handleCompleted(){
+        axios.post('http://localhost:5000/api/updatetask', {taskid: this.state.taskid})
+        .then(response =>{
+            this.setState({
+                completedtask: response.data
+            })
+        })
+        .catch(axiosErr =>{
+            console.log(axiosErr)
         })
     }
 
