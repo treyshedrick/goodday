@@ -104,7 +104,11 @@ class Task extends Component{
                     <button onClick={this.handleCompleted}>Completed Task</button>
                 </div>
             )
-        } else {
+        } else if(this.state.completedtask){
+            return(
+                <div>Task Completed For The Day!</div>
+            )
+        } else{
             return(
                 <div></div>
             )
