@@ -26,7 +26,8 @@ class Task extends Component{
                 this.setState({
                     posted:true,
                     insertedResponse: response.data.positiveresponse,
-                    taskid: response.data.id
+                    taskid: response.data.id,
+                    completedtask: response.data.completed
                 })
             }
             else{
