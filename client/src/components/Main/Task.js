@@ -27,7 +27,8 @@ class Task extends Component{
                     posted:true,
                     insertedResponse: response.data.positiveresponse,
                     taskid: response.data.id,
-                    completedtask: response.data.completed
+                    completedtask: response.data.completed,
+                    task: response.data.task
                 })
             }
             else{
@@ -102,6 +103,7 @@ class Task extends Component{
             return(
                 <div>
                     <div>{this.state.insertedResponse}</div>
+                    <div>-{this.state.task}</div>
                     <button onClick={this.handleCompleted}>Completed Task</button>
                 </div>
             )

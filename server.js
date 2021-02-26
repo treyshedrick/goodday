@@ -125,7 +125,7 @@ app.post('/api/postedtoday', (req,res) =>{
       if(dbres.rowCount === 1){
         let id = usertable+"id"
         if(id === "appusertaskid"){
-          res.send({didPost: true, positiveresponse: positiveresponse, id: dbres.rows[0][id], completed: dbres.rows[0].completed})
+          res.send({didPost: true, positiveresponse: positiveresponse, id: dbres.rows[0][id], completed: dbres.rows[0].completed, task: dbres.rows[0].task})
         } else{
           res.send({didPost: true, positiveresponse: positiveresponse, id: dbres.rows[0][id]})
         }
