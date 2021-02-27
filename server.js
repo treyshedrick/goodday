@@ -35,8 +35,6 @@ app.post('/api/update/name', (req, res) =>{
 
   client.query('Update appuser set firstname = \'' + req.body.name +'\' where appuserid = ' + req.body.id + ';', (err, dbres) =>{
     res.send("Success");
-    console.log(dbres)
-    console.log("Success")
     client.end();
   })
 })
@@ -146,7 +144,6 @@ app.post('/api/task', (req,res) =>{
   client.query('Insert into appusertask (appuserid, task) values (' + req.body.id + ', \'' + req.body.task + '\') returning appusertaskid;', (err, dbres) =>{
     if(!err){
       res.send({taskresponse: "Make sure to complete your task!", id: dbres.rows[0].appusertaskid})
-      console.log(dbres)
     } else if(err){
       res.send(err)
     }
