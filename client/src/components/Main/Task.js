@@ -94,8 +94,8 @@ class Task extends Component{
             <div>
                 <div>What do you want to get done today!?</div>
                 <form onSubmit={this.handleSubmit}>
-                    <textarea placeholder="Say something positive about the day!" onChange={this.handleChange} required></textarea>
-                    <button type="submit">Post!</button>                
+                    <div><textarea placeholder="Say something positive about the day!" onChange={this.handleChange} required></textarea></div>
+                    <div><button type="submit" className="good-btn">Post!</button></div>              
                 </form>
             </div>
         )
@@ -104,7 +104,7 @@ class Task extends Component{
                 <div>
                     <div>{this.state.insertedResponse}</div>
                     <div>-{this.state.task}</div>
-                    <button onClick={this.handleCompleted}>Completed Task</button>
+                    <button onClick={this.handleCompleted} className="good-btn">Completed Task</button>
                 </div>
             )
         } else if(this.state.completedtask){

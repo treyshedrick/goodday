@@ -5,13 +5,11 @@ let Home = (props) => {
     return(
         <div className="main container">
             <div className="row">
-                <div className="col-12">Hello {props.user.name}</div>
+                <div className="col-12 hello">Hello {props.user.name}</div>
             </div>
             <div className="row">
-                <div className="col-12"><Post user={props.user}/></div>
-            </div>
-            <div className="row">
-                <div className="col-12"><Task user={props.user}/></div>
+                <div className="col-lg-6"><Post user={props.user}/></div>
+                <div className="col-lg-6"><Task user={props.user}/></div>
             </div>
         </div>
         )
