@@ -1,5 +1,6 @@
 import Post from './Post';
 import Task from './Task';
+import UserPosts from './UserPosts';
 
 let Home = (props) => {
     return(
@@ -10,6 +11,11 @@ let Home = (props) => {
             <div className="row">
                 <div className="col-lg-6"><Post user={props.user}/></div>
                 <div className="col-lg-6"><Task user={props.user}/></div>
+            </div>
+            <div className="row">
+                <div className="col-12">
+                    <UserPosts user={props.user} />
+                </div>
             </div>
         </div>
         )

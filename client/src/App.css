@@ -88,3 +88,12 @@
   margin-top: 8px;
   font-family: cursive;
 }
+.UserPosts
+{
+  font-size: 15px;
+  margin: 20px;
+  border: 1px;
+  border-color: white;
+  border-style: solid;
+  border-radius: 2rem;
+}
