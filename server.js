@@ -163,4 +163,18 @@ app.post('/api/updatetask', (req,res) =>{
   })
 })
 
+app.get('/api/userposts', (req,res) =>{
+  const client = new Client(config.prod)
+  client.connect()
+
+  client.query('select a.firstname, p.post, dateposted from appuserpost p join appuser a on a.appuserid  = p.appuserid where p.dateposted > (current_date - 7) order by p.dateposted desc limit 9;', (err,dbres)=>{
+    if(!err){
+      res.send(dbres.rows);
+    } else{
+      res.send(err);
+    }
+  })
+
+})
+
 app.listen(port, () => console.log(`Listening on port ${port}`));
