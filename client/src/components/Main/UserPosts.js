@@ -9,6 +9,16 @@ class UserPosts extends Component{
         }
     }
 
+    componentDidMount(){
+        axios.get('http://localhost:3000/api/userposts')
+        .then(response =>{
+            console.log(response)
+        })
+        .catch(axiosErr =>{
+            console.log(axiosErr)
+        })
+    }
+
     render(){
         return(
                 <div className="UserPosts">
