@@ -26,7 +26,6 @@ class LogIn extends Component{
             console.log("Make sure updates occur on click")
             axios.post('http://localhost:5000/api/login',{email: this.state.email, password: this.state.password, newUser: this.state.newUser})
             .then(response =>{
-                console.log(response.data)
                 if(response.data.id > 0){
                     this.setState({
                         isLoggedIn: true,

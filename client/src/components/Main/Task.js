@@ -88,17 +88,16 @@ class Task extends Component{
     }
 
     render(){
-        console.log(this.state.taskid)
         if(!this.state.posted && this.state.newTask){
-        return(
-            <div>
-                <div>What do you want to get done today!?</div>
-                <form onSubmit={this.handleSubmit}>
-                    <div><textarea placeholder="Say something positive about the day!" onChange={this.handleChange} required></textarea></div>
-                    <div><button type="submit" className="good-btn">Post!</button></div>              
-                </form>
-            </div>
-        )
+            return(
+                <div>
+                    <div>What do you want to get done today!?</div>
+                    <form onSubmit={this.handleSubmit}>
+                        <div><textarea placeholder="Say something positive about the day!" onChange={this.handleChange} required></textarea></div>
+                        <div><button type="submit" className="good-btn">Post!</button></div>              
+                    </form>
+                </div>
+            )
         } else if(this.state.posted && !this.state.completedtask){
             return(
                 <div>
