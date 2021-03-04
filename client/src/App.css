@@ -88,12 +88,14 @@
   margin-top: 8px;
   font-family: cursive;
 }
-.UserPosts
+.PostItem
 {
-  font-size: 15px;
-  margin: 20px;
   border: 1px;
   border-color: white;
   border-style: solid;
   border-radius: 2rem;
+  background-color: rgba(255, 255, 255, .75);
+  color: black;
+  margin: 5px;
+  text-align: center !important;
 }
