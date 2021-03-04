@@ -3,8 +3,8 @@ let UserPostItem = (props) =>{
     return(
         <div className="PostItem col-12">
             <div>{props.post.post}</div>
-            <div>- {props.post.firstname} </div>
-            <span>{posteddate.toLocaleDateString('en-US')}</span>
+            <div className="smtxt inline">- {props.post.firstname}</div>
+            <div className="smtxt inline">{posteddate.toLocaleDateString('en-US')}</div>
         </div>
     )
 }

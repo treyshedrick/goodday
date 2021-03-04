@@ -8,7 +8,7 @@ let Home = (props) => {
             <div className="row">
                 <div className="col-12 hello">Hello {props.user.name}</div>
             </div>
-            <div className="row">
+            <div className="row actionsrow">
                 <div className="col-lg-6"><Post user={props.user}/></div>
                 <div className="col-lg-6"><Task user={props.user}/></div>
             </div>

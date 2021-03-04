@@ -102,8 +102,8 @@ class Task extends Component{
             return(
                 <div>
                     <div>{this.state.insertedResponse}</div>
-                    <div>-{this.state.task}</div>
-                    <button onClick={this.handleCompleted} className="good-btn">Completed Task</button>
+                    <div className="p-1 smtxt">-{this.state.task}</div>
+                    <button onClick={this.handleCompleted} className="">Completed Task</button>
                 </div>
             )
         } else if(this.state.completedtask){
