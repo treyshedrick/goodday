@@ -1,18 +1,21 @@
 import React, {Component} from 'react';
+import UserPostItem from './UserPostItem';
 import axios from 'axios'
 
 class UserPosts extends Component{
     constructor(props){
         super(props)
         this.state ={
-            users: []
+            posts: []
         }
     }
 
     componentDidMount(){
         axios.get('http://localhost:3000/api/userposts')
         .then(response =>{
-            console.log(response)
+            this.setState({
+                posts: response.data
+            })
         })
         .catch(axiosErr =>{
             console.log(axiosErr)
@@ -20,12 +23,22 @@ class UserPosts extends Component{
     }
 
     render(){
-        return(
-                <div className="UserPosts">
-                    Testing . . . Will show other user posts
+        console.log(this.state.posts)
+        if(this.state.posts.length > 1){
+            return(
+                <div className="container">
+                    <div className="hello">Recent Positive Posts!</div>
+                    <div className="row">
+                        {this.state.posts.map((i => <UserPostItem post={i} key={i.appuserpostid}/> ))}
+                    </div>
                 </div>
+            )
+        } else{
+            return(
+                <div>Loading. . .</div>
             )
         }
     }
+}
 
 export default UserPosts
