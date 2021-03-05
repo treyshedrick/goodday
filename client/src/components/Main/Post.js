@@ -76,7 +76,7 @@ class Post extends Component{
                 <div>Something Positive</div>
                 <form onSubmit={this.handleSubmit}>
                     <div><textarea placeholder="Say something positive about the day!" onChange={this.handleChange} required></textarea></div>
-                    <div><button type="submit" className="good-btn">Post!</button></div>             
+                    <div><button type="submit" className="main-btn">Post!</button></div>             
                 </form>
             </div>
         )
