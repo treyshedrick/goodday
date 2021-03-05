@@ -1,5 +1,6 @@
 import Inspiration from './components/Inspiration'
 import LogIn from './components/LogIn'
+import Footer from './components/Footer'
 import './App.css';
 import houstoncalm2 from './content/houstoncalm2.mp4'
 
@@ -12,6 +13,7 @@ function App() {
       <div className="App-Content container">
         <Inspiration/>
         <LogIn/>
+        <Footer />
       </div>
     </div>
   )
