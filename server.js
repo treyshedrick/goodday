@@ -20,7 +20,7 @@ app.use(cookieParser())
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(session({
-  key: "userid",
+  key: "user",
   store: new (require('connect-pg-simple')(session))({
     pool: new Pool(config.prod) 
   }),
@@ -55,6 +55,12 @@ app.post('/api/update/name', (req, res) =>{
   })
 })
 
+app.get('/api/login', (req,res) =>{
+  if(req.session.user){
+    res.send(req.session.user)
+  }
+})
+
 app.post('/api/login', (req, res) =>{
   let email = req.body.email
   let password = req.body.password
@@ -69,8 +75,7 @@ app.post('/api/login', (req, res) =>{
         bcrypt.compare(password, dbres.rows[0].password)
         .then(function(result) {
           if(result){
-            req.session.userid = dbres.rows[0].appuserid;
-            console.log(req.session.userid)
+            req.session.user = {id: dbres.rows[0].appuserid, name: dbres.rows[0].firstname};
             res.send({id: dbres.rows[0].appuserid, name: dbres.rows[0].firstname})
           } else{
             res.send({id: -1})

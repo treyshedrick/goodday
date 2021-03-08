@@ -19,6 +19,23 @@ class LogIn extends Component{
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleNewUser = this.handleNewUser.bind(this);
+
+        axios.defaults.withCredentials = true
+    }
+
+    componentDidMount(){
+        axios.get('http://localhost:5000/api/login')
+        .then(response =>{
+            if(response.data.id > 0){
+                this.setState({
+                    isLoggedIn: true,
+                    user: response.data
+                })
+            }
+        })
+        .catch(axiosErr =>{
+            console.log(axiosErr)
+        })
     }
 
     componentDidUpdate(prevProps, prevState){
