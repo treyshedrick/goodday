@@ -2,20 +2,36 @@ const express = require('express');
 const cors = require('cors')
 const bodyParser = require('body-parser');
 const config = require('./config')
-const { Client } = require('pg')
+const { Client, Pool } = require('pg')
 const bcrypt = require('bcrypt')
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
 
 const app = express();
 const port = process.env.PORT || 5000;
 
-app.use(cors())
-app.use(bodyParser.json());
+app.use(cors({
+  origin: 'http://localhost:3000',
+  methods: ['GET','POST'],
+  credentials: true,
+}))
+app.use(express.json());
+app.use(cookieParser())
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.use(session({
+  key: "userid",
+  store: new (require('connect-pg-simple')(session))({
+    pool: new Pool(config.prod) 
+  }),
+  secret: config.secret,
+  resave: false,
+  saveUninitialized: false,
+  cookie: { maxAge: 2 * 60 * 60 * 1000 } // 2 hours
+}));
 
 //quote api request
 const fetchquotes = require('node-fetch');
-const e = require('express');
 let quotesUrl = "https://zenquotes.io/api/random";
 let quotesGet = {method: "Get"};
 let quote = {};
@@ -53,6 +69,8 @@ app.post('/api/login', (req, res) =>{
         bcrypt.compare(password, dbres.rows[0].password)
         .then(function(result) {
           if(result){
+            req.session.userid = dbres.rows[0].appuserid;
+            console.log(req.session.userid)
             res.send({id: dbres.rows[0].appuserid, name: dbres.rows[0].firstname})
           } else{
             res.send({id: -1})
