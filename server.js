@@ -177,4 +177,18 @@ app.get('/api/userposts', (req,res) =>{
 
 })
 
+app.post('/api/taskpercentage', (req,res) =>{
+  const client = new Client(config.prod)
+  client.connect()
+
+  client.query('select count(completed) filter (where completed is true) as "completed", count(completed) as "total" from appusertask where appuserid = '+ req.body.id +'and dateposted > (current_date - 7);', (err, dbres) =>{
+    if(!err){
+      let percent = (Math.round((dbres.rows[0].completed / dbres.rows[0].total) * 100))
+      res.send({percentCompleted: percent})
+    } else{
+      res.send(err)
+    }
+  })
+})
+
 app.listen(port, () => console.log(`Listening on port ${port}`));
