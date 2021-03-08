@@ -23,7 +23,6 @@ class UserPosts extends Component{
     }
 
     render(){
-        console.log(this.state.posts)
         if(this.state.posts.length > 1){
             return(
                 <div className="container">

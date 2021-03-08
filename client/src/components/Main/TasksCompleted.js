@@ -22,7 +22,9 @@ class TasksCompleted extends Component{
     }
     render(){
         return(
-            <div className="actionsrow">You have completed {this.state.percentage}% of your most important daily tasks this week! Keep it up!</div>
+            <div className="actionsrow">
+                You have completed {this.state.percentage}% of your most important daily tasks this week! Keep it up!
+            </div>
         )
     }
 }

@@ -46,7 +46,6 @@ class Task extends Component{
     componentDidUpdate(prevProps, prevState){
         if(this.state.positivePost === prevState.positivePost && !this.state.posted && this.state.submit){
             let post = {id: this.props.user.id, task: this.state.task}
-            console.log("Post should only occur once")
             axios.post('http://localhost:5000/api/task', post)
             .then(response =>{
                 this.setState({
