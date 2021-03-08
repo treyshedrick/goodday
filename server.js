@@ -19,8 +19,9 @@ app.use(express.json());
 app.use(cookieParser())
 app.use(bodyParser.urlencoded({ extended: true }));
 
+//app session for cookies
 app.use(session({
-  key: "user",
+  name: "user",
   store: new (require('connect-pg-simple')(session))({
     pool: new Pool(config.prod) 
   }),
@@ -112,6 +113,12 @@ app.post('/api/login', (req, res) =>{
       });
     }
 });
+
+app.get('/api/logout', (req,res) =>{
+  req.session.destroy((err) =>{
+    res.clearCookie("user").send('clear cookie')
+  })
+})
 
 app.post('/api/post', (req,res) =>{
   const client = new Client(config.prod)
