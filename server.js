@@ -136,6 +136,7 @@ app.post('/api/post', (req,res) =>{
 app.post('/api/postedtoday', (req,res) =>{
   const client = new Client(config.prod)
   client.connect()
+  const timeoffset = new Date().getTimezoneOffset()/60
 
   let usertable = ""
   let positiveresponse = ""
@@ -148,7 +149,7 @@ app.post('/api/postedtoday', (req,res) =>{
     positiveresponse = "Make sure to complete your task!"
   }
 
-  client.query('select * from ' + usertable + ' where date(current_timestamp) = date(dateposted) and appuserid =' + req.body.id + ';', (err, dbres) =>{
+  client.query('select * from ' + usertable + ' where date(current_timestamp - interval \''+ timeoffset +' hours\') = date(dateposted) and appuserid =' + req.body.id + ';', (err, dbres) =>{
     if(!err){
       if(dbres.rowCount === 1){
         let id = usertable+"id"
