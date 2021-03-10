@@ -92,7 +92,6 @@ app.post('/api/login', (req, res) =>{
           res.send(err)
           console.log(err)
       }
-
       client.end();
     })
 
@@ -130,6 +129,7 @@ app.post('/api/post', (req,res) =>{
     } else if(err){
       res.send(err)
     }
+    client.end();
   })
 })
 
@@ -158,13 +158,13 @@ app.post('/api/postedtoday', (req,res) =>{
         } else{
           res.send({didPost: true, positiveresponse: positiveresponse, id: dbres.rows[0][id]})
         }
-        
       } else{
         res.send(false)
       }
     } else if(err){
       console.log(err)
     }
+    client.end();
   })
 })
 
@@ -178,6 +178,7 @@ app.post('/api/task', (req,res) =>{
     } else if(err){
       res.send(err)
     }
+    client.end();
   })
 })
 
@@ -191,6 +192,7 @@ app.post('/api/updatetask', (req,res) =>{
     } else{
       res.send(err)
     }
+    client.end();
   })
 })
 
@@ -204,6 +206,7 @@ app.get('/api/userposts', (req,res) =>{
     } else{
       res.send(err);
     }
+    client.end();
   })
 
 })
@@ -219,6 +222,7 @@ app.post('/api/taskpercentage', (req,res) =>{
     } else{
       res.send(err)
     }
+    client.end();
   })
 })
 
