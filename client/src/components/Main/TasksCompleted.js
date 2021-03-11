@@ -21,11 +21,22 @@ class TasksCompleted extends Component{
         })
     }
     render(){
-        return(
-            <div className="actionsrow">
-                You have completed {this.state.percentage}% of your most important daily tasks this week! Keep it up!
-            </div>
-        )
+        console.log(this.state.percentage)
+        if(this.state.percentage > 0){
+            return(
+                <div className="actionsrow">
+                    You have completed {this.state.percentage}% of your most important daily tasks this week! Keep it up!
+                </div>
+            )
+        } else if(this.state.percentage == null){
+            return(
+                <div className="actionsrow">You have not completed any tasks this week</div>
+            )
+        } else{
+            return(
+                <div></div>
+            )
+        }
     }
 }
 
