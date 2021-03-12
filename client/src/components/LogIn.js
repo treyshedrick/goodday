@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import axios from 'axios';
 import NewUser from './NewUser';
 import Home from './Main/Home';
@@ -11,6 +11,7 @@ class LogIn extends Component{
             password: null,
             submit: false,
             newUser: false,
+            mounted: false,
             isLoggedIn: false,
             invalidInputs: false,
             user: {}
@@ -23,8 +24,8 @@ class LogIn extends Component{
         axios.defaults.withCredentials = true
     }
 
-    componentDidMount(){
-        axios.get('http://localhost:5000/api/login')
+    async componentDidMount(){
+        await axios.get('http://localhost:5000/api/login')
         .then(response =>{
             if(response.data.id > 0){
                 this.setState({
@@ -36,10 +37,14 @@ class LogIn extends Component{
         .catch(axiosErr =>{
             console.log(axiosErr)
         })
+
+        this.setState({
+            mounted: true
+        })
     }
 
     componentDidUpdate(prevProps, prevState){
-        if(prevState.email === this.state.email && this.state.password === prevState.password && prevState.newUser === this.state.newUser && !this.state.isLoggedIn && this.state.invalidInputs === prevState.invalidInputs){
+        if(prevState.email === this.state.email && this.state.password === prevState.password && prevState.newUser === this.state.newUser && !this.state.isLoggedIn && this.state.invalidInputs === prevState.invalidInputs && prevState.mounted === this.state.mounted){
             axios.post('http://localhost:5000/api/login',{email: this.state.email, password: this.state.password, newUser: this.state.newUser})
             .then(response =>{
                 if(response.data.id > 0){
@@ -94,7 +99,7 @@ class LogIn extends Component{
             userMethod = 'Invalid username or password. Please try again'
         }
 
-        if(!this.state.isLoggedIn || this.state.user.id < 0){
+        if((!this.state.isLoggedIn || this.state.user.id < 0) && this.state.mounted){
             return(
                 <div className="login container">    
                     <form className="row" onSubmit={this.handleSubmit}>
@@ -113,6 +118,10 @@ class LogIn extends Component{
         } else if(this.state.newUser && this.state.isLoggedIn){
             return(
                 <NewUser id={this.state.user.id} />
+            )
+        } else {
+            return(
+                <Fragment></Fragment>
             )
         }
     }

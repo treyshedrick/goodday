@@ -59,6 +59,8 @@ app.post('/api/update/name', (req, res) =>{
 app.get('/api/login', (req,res) =>{
   if(req.session.user){
     res.send(req.session.user)
+  } else{
+    res.send("session invalid or expired")
   }
 })
 
