@@ -21,7 +21,6 @@ class TasksCompleted extends Component{
         })
     }
     render(){
-        console.log(this.state.percentage)
         if(this.state.percentage > 0){
             return(
                 <div className="actionsrow">

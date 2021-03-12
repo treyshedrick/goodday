@@ -105,7 +105,7 @@ class LogIn extends Component{
                     <form className="row" onSubmit={this.handleSubmit}>
                         <div className="col-12 login-method">{userMethod}</div>
                         <div className="col-12"><input type="text" name="email" onChange={this.handleChange} placeholder="Email" required/></div>
-                        <div className="col-12"><input type="password" name="password" onChange={this.handleChange} placeholder="Password" required/></div>
+                        <div className="col-12"><input type="password" name="password" onChange={this.handleChange} placeholder="Password" autoComplete="on" required/></div>
                         <div className="col-6 login-btn-left"><button className="good-btn" type="submit">Submit</button></div>
                         <div className="col-6 login-btn-right"><button className="good-btn" onClick={this.handleNewUser}>{btntext}</button></div>
                     </form>
