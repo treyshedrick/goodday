@@ -1,6 +1,5 @@
 const express = require('express');
 const cors = require('cors')
-const bodyParser = require('body-parser');
 const config = require('./config')
 const { Client, Pool } = require('pg')
 const bcrypt = require('bcrypt')
@@ -17,7 +16,7 @@ app.use(cors({
 }))
 app.use(express.json());
 app.use(cookieParser())
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }));
 
 //app session for cookies
 app.use(session({
